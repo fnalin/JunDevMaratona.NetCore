@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "Adicionar Produto";
+}
+
+<h2>@ViewBag.Title</h2>
+<form method="post">
+
+    <div class="form-group">
+        <label>Nome</label>
+        <input type="text" name="nome" class="form-control" autofocus />
+    </div>
+
+    <div class="form-group">
+        <label>Tipo</label>
+        <input type="text" name="tipoprodutoid" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Valor</label>
+        <input type="text" name="valor" class="form-control" />
+    </div>
+
+    <button class="btn btn-secondary">Salvar</button>
+    <a href="@Url.Action("Produtos")" class="btn btn-info">Cancelar</a>
+
+</form>
