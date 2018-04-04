@@ -1,0 +1,51 @@
+﻿@model Produto
+@{
+    ViewBag.Title = $"{(Model.Id == 0 ? "Adicionar" : "Editar")} Produto";
+}
+
+<h2>@ViewBag.Title</h2>
+<form method="post">
+
+    <div class="form-group">
+        <label>Nome</label>
+        <input type="text" asp-for="Nome" class="form-control" autofocus />
+        <small class="is-invalid">
+            <span asp-validation-for="Nome"></span>
+        </small>
+    </div>
+
+    <div class="form-group">
+        <label>Tipo</label>
+        <select asp-for="TipoProdutoId" asp-items="@ViewBag.Tipos" class="form-control">
+            <option value="">Selecione...</option>
+        </select>
+        <small class="is-invalid">
+            <span asp-validation-for="TipoProdutoId"></span>
+        </small>
+    </div>
+
+    <div class="form-group">
+        <label>Valor</label>
+        <input type="text" asp-for="Valor" class="form-control" />
+        <small class="is-invalid">
+            <span asp-validation-for="Valor"></span>
+        </small>
+    </div>
+
+    <div class="form-group">
+        <label>Descricao</label>
+        <textarea asp-for="Descricao" rows="4" class="form-control"></textarea>
+        <small class="is-invalid">
+            <span asp-validation-for="Descricao"></span>
+        </small>
+    </div>
+
+    <button class="btn btn-secondary">Salvar</button>
+    <a asp-action="Index" class="btn btn-info">Cancelar</a>
+
+</form>
+
+@section scripts{
+    <script src="~/node_modules/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js"></script>
+}
