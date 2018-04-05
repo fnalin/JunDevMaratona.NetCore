@@ -7,6 +7,7 @@
     "bootstrap": "4.0.0",
     "jquery": "3.3.1",
     "jquery-validation": "1.17.0",
-    "jquery-validation-unobtrusive": "3.2.9"
+    "jquery-validation-unobtrusive": "3.2.9",
+    "toastr": "2.1.4"
   }
 }

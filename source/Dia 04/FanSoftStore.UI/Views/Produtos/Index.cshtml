@@ -1,0 +1,89 @@
+﻿@model IEnumerable<Produto>
+@{
+    ViewBag.Title = "Listagem de Produtos";
+}
+<h2>@ViewBag.Title</h2>
+
+
+<div>
+    <a class="btn btn-success" href="@Url.Action("AddEdit")">Adicionar</a>
+</div>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Tipo</th>
+            <th>Valor</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr id="item-@item.Id">
+                <td>@item.Nome</td>
+                <td>@item.Tipo.Nome</td>
+                <td>@item.Valor</td>
+                <td>
+                    <a class="btn btn-warning btn-sm" asp-action="AddEdit" asp-route-id="@item.Id">Editar</a>
+                    <button onclick="excluir('@item.Id','@item.Nome')" class="btn btn-danger btn-sm">Excluir</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div data-id="0" class="modal" tabindex="-1" role="dialog" id="del-modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Exclusão</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Tem certeza que quer excluir o produto <strong><span id="nome-item"></span></strong>?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="excluiConfirma()">Sim</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+    function excluir(id,nome) {
+        //alert('excluindo - ' + id + ' - ' + nome);
+        $('#nome-item').text(nome);
+        $('#del-modal').data('id',id).modal('show');
+    }
+
+    var _url = '@Url.Action("Excluir")';
+
+    function excluiConfirma() {
+        var _id = $('#del-modal').data('id');
+        //alert('ok - ' + _id);
+        $.ajax({
+            url: _url,
+            data: {id:_id},
+            dataType: 'json',
+            type: 'delete',
+            success: function () {
+                toastr.success('Excluído c/ sucesso!', 'FanSoft');
+             },
+            error: function () {
+                toastr.error('Erro ao excluir!', 'FanSoft');
+             },
+            complete: function () {
+                $('#del-modal').data('id', '0').modal('hide');
+                $('#item-' + _id).remove();
+             }
+        });
+    }
+
+    </script>
+}
